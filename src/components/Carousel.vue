@@ -32,7 +32,7 @@
       >
         <div
           v-for="(item, index) in data"
-          :ref="(el) => itemsRefs[index] = el"
+          :ref="el => setItemRef(el as HTMLElement, index)"
           :key="item.name"
           class="snap-center md:min-h-[560px] min-h-[250px] w-full flex-shrink-0 flex flex-col p-[25px]
             bg-white text-gray-900 rounded-md"
@@ -74,6 +74,10 @@ const data: IUser[] = faker.helpers.multiple(createUser, { count })
 const isVisible = computed(() => (index: number) =>
   visibleIndex.value === index || visibleIndex.value === index + 1 || visibleIndex.value === index - 1
 )
+
+function setItemRef(el: HTMLElement | null, index: number) {
+  if (el) itemsRefs.value[index] = el
+}
 </script>
 <style lang="scss">
 .active-button-state {
